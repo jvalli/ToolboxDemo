@@ -54,6 +54,11 @@ class TDHomeViewController: UICollectionViewController {
         if let videoUrl = carouselItem.video, let url = URL(string: videoUrl) {
             let videoPlayer = AVPlayer(url: url)
             playerViewController.player = videoPlayer
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])
+            } catch let error {
+                print(error.localizedDescription)
+            }
             present(playerViewController, animated: true) {
                 self.playerViewController.player?.play()
             }
